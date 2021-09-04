@@ -32,3 +32,7 @@ Route::get('/constraint_para/{num}', function ($num) {
 ]);
 //another place to set constraint is at RouteServiceProvider.php
 //which can make setting to the whole web
+
+Route::get('/subdir', function(){
+    return view('home.subdir');//using dot to seperate directory and file
+});
