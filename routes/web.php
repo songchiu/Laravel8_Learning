@@ -64,7 +64,8 @@ Route::get('/condition_render/{id}', function($id){
         1 => [
             'title' => 'Intro to Laravel',
             'content' => 'This is a short intro to Laravel',
-            'is_true' => true
+            'is_true' => true,
+            'isset_test' => true
         ],
         2 => [
             'title' => 'Intro to PHP',

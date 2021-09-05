@@ -10,6 +10,15 @@
   <div>a old post...</div>
 @endif
 
-  <h1>{{ $post['title'] }}</h1>
-  <p>{{ $post['content'] }}</p>
+@unless ($post['is_true'])
+  <div>old post... using unless</div>
+@endunless
+
+<h1>{{ $post['title'] }}</h1>
+<p>{{ $post['content'] }}</p>
+
+@isset($post['isset_test'])
+<div>The var "isset_test" exists!</div>
+@endisset
+
 @endsection
