@@ -58,3 +58,22 @@ Route::get('/posts/{id}', function($id){
 
     return view('posts.show', ['post' => $posts[$id]]);//using dot to seperate directory and file
 });
+
+Route::get('/condition_render/{id}', function($id){
+    $posts = [
+        1 => [
+            'title' => 'Intro to Laravel',
+            'content' => 'This is a short intro to Laravel',
+            'is_true' => true
+        ],
+        2 => [
+            'title' => 'Intro to PHP',
+            'content' => 'This is a short intro to PHP',
+            'is_true' => false
+        ]
+    ];
+
+    abort_if(!isset($posts[$id]), 404);
+
+    return view('posts.condition', ['post' => $posts[$id]]);//using dot to seperate directory and file
+});
