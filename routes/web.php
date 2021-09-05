@@ -49,5 +49,7 @@ Route::get('/posts/{id}', function($id){
         ]
     ];
 
+    abort_if(!isset($posts[$id]), 404);
+
     return view('posts.show', ['post' => $posts[$id]]);//using dot to seperate directory and file
 });
