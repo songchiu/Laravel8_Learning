@@ -91,5 +91,23 @@ Route::get('/responses', function() use ($posts){
 });
 
 Route::get('/redirect', function(){
-  return redirect();
+  return redirect('/optional_para');
+});
+
+Route::get('/back', function(){
+    return back();//return to the previous page
+});
+
+Route::get('/redirect-namedroute', function(){
+return redirect()->route('welcome');
+//now we can see the important of naming route!
+});
+
+Route::get('/away', function(){
+    return redirect()->away('https://140.115.81.230');
+    //"away" can redirect the page to the https url
+});
+
+Route::get('/json', function() use ($posts){
+    return response()->json($posts);
 });
