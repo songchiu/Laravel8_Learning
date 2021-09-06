@@ -4,6 +4,11 @@
 
 @section('content')
   @foreach($posts as $key => $p)
+    @if ($loop->even)
+      {{-- variable "$loop" can only be use in foreach forelse --}}
+      {{-- Which means can not be used at "for" loop--}}
+    @endif
+
     <div>{{ $key }}.{{ $p['title'] }}</div>
   @endforeach
 
