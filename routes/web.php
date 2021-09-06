@@ -90,29 +90,31 @@ Route::get('/responses', function() use ($posts){
     ->cookie('TEST_COOKIE', 'cookie content', 3600);
 });
 
-Route::get('/redirect', function(){
-  return redirect('/optional_para');
-});
-
-Route::get('/back', function(){
-    return back();//return to the previous page
-});
-
-Route::get('/redirect-namedroute', function(){
-return redirect()->route('welcome');
-//now we can see the important of naming route!
-});
-
-Route::get('/away', function(){
-    return redirect()->away('https://140.115.81.230');
-    //"away" can redirect the page to the https url
-});
-
-Route::get('/json', function() use ($posts){
-    return response()->json($posts);
-});
-
-Route::get('/download', function() {
-    return response()->download(public_path('/picture/ncu.png'), 'download_pic_name.png');
-    //using "public_path" to access "public" directory
+Route::prefix('/play')->name('play.')->group(function() use($posts) {
+    Route::get('/redirect', function(){
+        return redirect('/optional_para');
+    })->name('redirect');
+    
+    Route::get('/back', function(){
+        return back();//return to the previous page
+    })->name('back');
+    
+    Route::get('/redirect-namedroute', function(){
+        return redirect()->route('welcome');
+        //now we can see the important of naming route!
+    })->name('redirect-namedroute');
+    
+    Route::get('/away', function(){
+        return redirect()->away('https://140.115.81.230');
+        //"away" can redirect the page to the https url
+    })->name('away');
+    
+    Route::get('/json', function() use ($posts){
+        return response()->json($posts);
+    })->name('json');
+    
+    Route::get('/download', function() {
+        return response()->download(public_path('/picture/ncu.png'), 'download_pic_name.png');
+        //using "public_path" to access "public" directory
+    })->name('download');
 });
