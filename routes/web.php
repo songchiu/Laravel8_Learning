@@ -111,3 +111,8 @@ Route::get('/away', function(){
 Route::get('/json', function() use ($posts){
     return response()->json($posts);
 });
+
+Route::get('/download', function() {
+    return response()->download(public_path('/picture/ncu.png'), 'download_pic_name.png');
+    //using "public_path" to access "public" directory
+});
