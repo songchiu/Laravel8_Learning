@@ -83,3 +83,13 @@ Route::get('/for', function() use ($posts){
 
     return view('posts.for', ['posts' => $posts]);//using dot to seperate directory and file
 });
+
+Route::get('/responses', function() use ($posts){
+  return response($posts, 201)
+    ->header('Content-Type', 'application/json')
+    ->cookie('TEST_COOKIE', 'cookie content', 3600);
+});
+
+Route::get('/redirect', function(){
+  return redirect();
+});

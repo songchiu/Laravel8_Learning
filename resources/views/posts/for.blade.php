@@ -19,12 +19,18 @@
     {{-- (please notice that we don't need to put @endempty at the end) --}}
   @endforelse
 
+  {{-- We can use "each" to alternate "forelse"--}}
+  {{-- e.g. @each('view.name', $jobs, 'job', 'view.empty') --}}
+  {{-- the forth parameter is for the empty case (like forelse's empty)--}}
+  {{-- But please notice that @each do not inherit the variables from the parent view--}}
+  {{-- we should use the @foreach and @include directives instead--}}
+
   @for($i=1; $i<=10; $i++)
     <div>The current value is {{ $i }}</div>
   @endfor
 
   @php
-    //we can put some php code in here!!
+    //we can put some raw php code in here!!
     //such as define variable, calling functions and methods
   @endphp
 
