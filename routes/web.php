@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SingleController;
 use Illuminate\Http\Request; //this line is vital
 use Illuminate\Support\Facades\Route;
 
@@ -20,8 +22,17 @@ Route::get('/', function () {
 });
 
 Can be simplify as below
-*/
 Route::view('/', 'welcome')->name('welcome');
+*/
+
+//##############################################################################
+Route::get('/', [HomeController::class, 'home'])->name('welcome');
+
+Route::get('/single_controller', SingleController::class);
+
+//If controller class has many actions, we had to provide an array with class name and action name
+//If controller class has only one action, just provice their class name
+//##############################################################################
 
 Route::get('/get_test/{id}', function ($id) {
     return 'hi~ the id is '.$id;
@@ -50,7 +61,12 @@ Route::get('/posts', function () {
 
     //we can use "query" to replace "input"
     //but "query" can only retrieve values from the "query string"
-    //(which is send in the web URL. "include" retrieve values from "request payload")
+    //(which is send in the web URL.
+    //"include" retrieve values from "request payload")
+    //
+    // BTW, there are lots of methods for $request
+    // such as: has, whenHas, hasAny, filled, whenFilled, missing
+    // get more information at: https://laravel.com/docs/8.x/requests
 });
 
 Route::get('/posts/{id}', function($id){
@@ -129,3 +145,8 @@ Route::prefix('/play')->name('play.')->group(function() use($posts) {
         //using "public_path" to access "public" directory
     })->name('download');
 });
+
+Route::get('/auth_middleware/{id}', function ($id) {
+    return 'hi~ the id is '.$id;
+})->name('auth_middleware')->middleware('auth');
+
