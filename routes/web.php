@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\SingleController;
 use Illuminate\Http\Request; //this line is vital
 use Illuminate\Support\Facades\Route;
@@ -47,22 +48,22 @@ Route::get('/constraint_para/{num}', function ($num) {
 })->where([
     'num' => '[0-9]+'
 ]);
-//another place to set constraint is at RouteServiceProvider.php
-//which can make setting to the whole web
+// another place to set constraint is at RouteServiceProvider.php
+// which can make setting to the whole web
 
 Route::get('/subdir', function(){
     return view('home.subdir');//using dot to seperate directory and file
 });
 
 Route::get('/posts', function () {
-    //dd(request()->all()); this will output data in json format
+    // dd(request()->all()); this will output data in json format
 
     dd(request()->input('limit', 5));//5 is default value
 
-    //we can use "query" to replace "input"
-    //but "query" can only retrieve values from the "query string"
-    //(which is send in the web URL.
-    //"include" retrieve values from "request payload")
+    // we can use "query" to replace "input"
+    // but "query" can only retrieve values from the "query string"
+    // (which is send in the web URL.
+    // "include" retrieve values from "request payload")
     //
     // BTW, there are lots of methods for $request
     // such as: has, whenHas, hasAny, filled, whenFilled, missing
@@ -150,3 +151,6 @@ Route::get('/auth_middleware/{id}', function ($id) {
     return 'hi~ the id is '.$id;
 })->name('auth_middleware')->middleware('auth');
 
+Route::resource('crud', PostController::class);
+//can add "->only([''])" or "->except([''])" at the end to enable or disable some actions
+//e.g. ->only(['index', 'show'])
