@@ -19,6 +19,17 @@ class AddColumnToBlogpostsTable extends Migration
             $table->string('title');
             $table->text('content');
         });
+
+        /*
+            After doing migration to this table
+            we can use "php artisan tinker" to retrieve data is json format
+
+            First, enter "php artisan tinker" in powershell
+            Second, enter "BlogPost::find(data's id)"
+
+            If "data id" doesn't exist, system will return "null"
+            we can use "BlogPost::findOrFail(data's id)" to get futher information
+        */
     }
 
     /**
