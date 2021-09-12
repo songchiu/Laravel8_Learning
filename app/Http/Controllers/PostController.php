@@ -3,6 +3,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogPost;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -31,7 +33,8 @@ class PostController extends Controller
     public function index()
     {
         // URL "/crud" refers to index() method
-        return view('posts.for', ['posts' => $this->posts]);
+        // "take()" means "limit" in SQL
+        return view('posts.for', ['posts' => User::orderBy('created_at', 'desc')->take(3)->get()]);
     }
 
     /**
@@ -66,6 +69,9 @@ class PostController extends Controller
         abort_if(!isset($this->posts[$id]), 404);
 
         return view('posts.show', ['post' => $this->posts[$id]]);
+
+        //view can also be present as below
+        //return view('posts.show', ['post' => User::findOrFail($id)]);
     }
 
     /**
