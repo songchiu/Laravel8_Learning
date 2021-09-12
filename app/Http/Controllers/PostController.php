@@ -55,7 +55,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        // dd($request); show the whole detail of $request
+
+        $request->validate([
+            'title' => 'bail|required|min:5|max:50',
+            'content' => 'required|min:5'
+        ]);
+        //bail means if an error occurs, it will doing validation
+        //we can use "validate" to check input data
 
         $post = new BlogPost();
 
