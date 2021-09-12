@@ -55,7 +55,17 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+
+        $post = new BlogPost();
+
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->save();
+
+        return redirect()->route('crud.show', ['crud' =>$post->id]);
+        //array parameter must be the SAME as route's name 
+        //e.g. "crud"
     }
 
     /**
@@ -66,12 +76,12 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        abort_if(!isset($this->posts[$id]), 404);
+        //abort_if(!isset($this->posts[$id]), 404);
 
-        return view('posts.show', ['post' => $this->posts[$id]]);
+        //return view('posts.show', ['post' => $this->posts[$id]]);
 
         //view can also be present as below
-        //return view('posts.show', ['post' => User::findOrFail($id)]);
+        return view('posts.show', ['post' => BlogPost::findOrFail($id)]);
     }
 
     /**
