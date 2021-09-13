@@ -8,6 +8,13 @@
 </head>
 <body>
     <div>
+        @if(session('status'))
+            {{-- display session flash message "status" --}}
+            <div style="background: red;color: white">
+                {{ session('status') }}
+            </div>
+        @endif
+
         @yield('content')
     </div>
 </body>

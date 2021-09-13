@@ -91,6 +91,10 @@ class PostController extends Controller
         $post->content = $validated['content'];//use "$validated" to retrieve post value
         $post->save();
 
+        $request->session()->flash('status', 'The blog post was created');
+        //create session flash message
+        //at once been showed, it will be delete automatically
+
         return redirect()->route('crud.show', ['crud' =>$post->id]);
         //array parameter must be the SAME as route's name 
         //e.g. "crud"
