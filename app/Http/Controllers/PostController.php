@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePost;
 use App\Models\BlogPost;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -53,6 +54,9 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    /* without using additional class to validate input data
+
     public function store(Request $request)
     {
         // dd($request); show the whole detail of $request
@@ -68,6 +72,23 @@ class PostController extends Controller
 
         $post->title = $request->input('title');
         $post->content = $request->input('content');
+        $post->save();
+
+        return redirect()->route('crud.show', ['crud' =>$post->id]);
+        //array parameter must be the SAME as route's name 
+        //e.g. "crud"
+    }
+    */
+
+    //Using additional class "StorePost" to validate data
+    public function store(StorePost $request)
+    {
+        $validated = $request->validated();
+
+        $post = new BlogPost();
+
+        $post->title = $validated['title'];//use "$validated" to retrieve post value
+        $post->content = $validated['content'];//use "$validated" to retrieve post value
         $post->save();
 
         return redirect()->route('crud.show', ['crud' =>$post->id]);
