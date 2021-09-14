@@ -8,14 +8,14 @@
 <form action="{{ route('crud.store') }}" method="POST">
     @csrf
     
-    <div><input type="text" name="title"></div>
+    <div><input type="text" name="title" value="{{ old('title') }}"></div>
 
     @error('title')
         {{-- display specific column's error --}}
         <div>{{ $message }}</div>
     @enderror
 
-    <div><textarea name="content"></textarea></div>
+    <div><textarea name="content">{{ old('content') }}</textarea></div>
     <div><input type="submit" value="Create"></div>
 
     @if($errors->any())
