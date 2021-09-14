@@ -11,5 +11,8 @@ class BlogPost extends Model
     //We must add some setting in the Model
     protected $fillable = ['title', 'content'];//In this array, we assign columns that can be filled
 
+    // "$fillable" is white list
+    // "$guarded" is black list
+
     use HasFactory;
 }
