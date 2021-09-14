@@ -85,11 +85,16 @@ class PostController extends Controller
     {
         $validated = $request->validated();
 
+        /* This way is not convenient for adding mass data
         $post = new BlogPost();
 
         $post->title = $validated['title'];//use "$validated" to retrieve post value
         $post->content = $validated['content'];//use "$validated" to retrieve post value
         $post->save();
+        */
+
+        //We can use another way to add mass data
+        $post = BlogPost::create($validated);
 
         $request->session()->flash('status', 'The blog post was created');
         //create session flash message
