@@ -139,9 +139,24 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+
+    //Using additional class "StorePost" to validate data
+    public function update(StorePost $request, $id)
     {
-        //
+        //method "edit" is for showing data by "view"
+        //method "update" is for update sql
+
+        $post = BlogPost::findOrFail($id);
+        $validated = $request->validated();
+
+        $post->fill($validated);
+        $post->save();//save the data
+
+        $request->session()->flash('status', 'Blog post was updated!');
+
+        return redirect()->route('crud.show', ['crud' => $post->id]);
+        //array parameter must be the SAME as route's name 
+        //e.g. "crud"
     }
 
     /**
