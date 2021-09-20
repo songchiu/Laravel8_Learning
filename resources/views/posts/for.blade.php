@@ -13,7 +13,14 @@
   @endforeach
 
   @forelse($posts as $key => $p)
-    <div>{{ $key }}.{{ $p['title'] }}</div>
+    <div>key:{{ $key }} id:{{ $p->id }} title:{{ $p->title }}</div>
+    <div>
+      <form action="{{ route('crud.destroy', ['crud' => $p->id])}}" method="POST">
+        @csrf
+        @method('DELETE')
+        <input type="submit" value="Delete!">
+      </form>
+    </div>
   @empty
     No post found
     {{-- (please notice that we don't need to put @endempty at the end) --}}

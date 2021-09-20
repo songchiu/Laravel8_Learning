@@ -35,7 +35,7 @@ class PostController extends Controller
     {
         // URL "/crud" refers to index() method
         // "take()" means "limit" in SQL
-        return view('posts.for', ['posts' => User::orderBy('created_at', 'desc')->take(3)->get()]);
+        return view('posts.for', ['posts' => BlogPost::orderBy('created_at', 'desc')->take(3)->get()]);
     }
 
     /**
@@ -167,6 +167,13 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = BlogPost::findOrFail($id);
+        $post->delete();
+
+        //session flash message may be display in many ways
+        //like "update" method above, it uses "$request->session()->flash"
+        session()->flash('status', 'Blog post was deleted!');
+
+        return redirect()->route('crud.index');
     }
 }
